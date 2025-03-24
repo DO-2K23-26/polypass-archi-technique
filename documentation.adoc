@@ -10,6 +10,9 @@ Vocable:
 
 - User: A person who uses the Polypass system and who is authenticated.
 - Guest: A person who uses the Polypass system but who is not authenticated.
+- Folder: A aggregate of passwords and folders.
+- Tag: A label that can be attached to a password.
+- Files: Text files that can be stored securely.
 
 === User Management
 
