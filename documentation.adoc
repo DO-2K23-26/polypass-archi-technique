@@ -6,186 +6,134 @@ The polypass team
 
 This part concerns the features we want to implement in the Polypass system.
 
+Vocable:
+
+- User: A person who uses the Polypass system and who is authenticated.
+- Guest: A person who uses the Polypass system but who is not authenticated.
+
 === User Management
 
 As a user:
 
-* I want to create an account.
-* I want to log in to my account.
-* I want to log out of my account.
-* I want to delete my account.
+- I want to create an account.
+- I want to log in to my account.
+- I want to log out of my account.
+- I want to delete my account.
 
-=== Passwords Management
+
+
+=== Credentials Management
 
 As a user:
 
-* I want to store the credentials of a website I am using.
-* I want to tag my credentials for better organization.
-* I want to generate a secure password.
-* I want to add context or custom fields to my credentials.
+- I want to store the credentials of a website I am using.
+- I want to tag my credentials for better organization.
+- I want to generate a secure password.
+- I want to add context or custom fields to my credentials.
 
-ifdef::env-github[]
-[source,mermaid]
-endif::[]
-ifndef::env-github[]
-[mermaid]
-endif::[]
-....
+[mermaid, format="svg"]
+----
 flowchart TD
     User["User"] --> |Store| A["Website credentials"]
     User --> |Tag| B["Organize credentials"]
     User --> |Generate| C["Secure password"]
     User --> |Add| D["Context or custom fields"]
-....
+----
 
-=== Passwords Sharing
+=== Credentials Sharing
 
 As a user:
 
-* I want to share my credentials with another user.
-* I want to set the date of revocation of the shared credentials.
-* I want to set the password to be only seen once.
-* I want to define a passphrase for the shared credentials.
+- I want to share my credentials with another user.
+- I want to set the date of revocation of the shared credentials.
+- I want to set the credential to be only seen once.
+- I want to define a passphrase for the shared credentials.
 
 As a guest:
 
-* I want to be able to use the passphrase to see the shared credentials.
-* I want to be able to copy/paste any field of the shared credentials.
+- I want to be able to use the passphrase to see the shared credentials.
+- I want to be able to copy/paste any field of the shared credentials.
 
-ifdef::env-github[]
-[source,mermaid]
-endif::[]
-ifndef::env-github[]
-[mermaid]
-endif::[]
-....
+[mermaid, format="svg"]
+----
 flowchart TD
     User["User"] --> |Share| A["Share credentials"]
     A --> |Set| B["Date of revocation"]
-    A --> |Set| C["View-once password"]
+    A --> |Set| C["View-once credential"]
     A --> |Define| D["Passphrase"]
     Guest["Guest"] --> |Use| D
     Guest --> |Copy/Paste| E["Shared credentials fields"]
-....
+----
+
 
 === Encrypted Files
 
 As a user:
 
-* I want to take notes securely.
-* I want to store files securely.
+- I want to take notes securely.
+- I want to store files securely.
 
-ifdef::env-github[]
-[source,mermaid]
-endif::[]
-ifndef::env-github[]
-[mermaid]
-endif::[]
-....
+[mermaid, format="svg"]
+----
 flowchart TD
     User["User"] --> |Take notes| A["Secure notes"]
     User --> |Store| B["Secure files"]
-....
+----
 
 === Organization
 
 As a user:
 
-* I want to organize my passwords using folders or tags.
-* I want to create, rename, or delete folders or tags.
-* I want to move passwords between folders or tags.
-* I want to view my passwords in a tree structure based on folders or tags.
+- I want to organize my credentials using folders or tags.
+- I want to create, rename, or delete folders or tags.
+- I want to move credentials between folders or tags.
+- I want to view my credentials in a tree structure based on folders or tags.
 
-ifdef::env-github[]
-[source,mermaid]
-endif::[]
-ifndef::env-github[]
-[mermaid]
-endif::[]
-....
+[mermaid, format="svg"]
+----
 flowchart TD
     User["User"] --> |Organize| A["Folders or tags"]
     A --> |Create/Rename/Delete| B["Manage folders or tags"]
-    A --> |Move| C["Passwords between folders or tags"]
+    A --> |Move| C["Credentials between folders or tags"]
     A --> |View| D["Tree structure"]
-....
+----
 
 === Search
 
 As a user:
 
-* I want to search for a password by its name.
-* I want to search for a password by its tag.
-* I want to search for a password by its website.
+- I want to search for a credential by its name.
+- I want to search for a credential by its tag.
+- I want to search for a credential by its website.
 
-ifdef::env-github[]
-[source,mermaid]
-endif::[]
-ifndef::env-github[]
-[mermaid]
-endif::[]
-....
+[mermaid, format="svg"]
+----
 flowchart TD
-    User["User"] --> |Search by| A["Password name"]
-    User --> |Search by| B["Password tag"]
+    User["User"] --> |Search by| A["Credential name"]
+    User --> |Search by| B["Credential tag"]
     User --> |Search by| C["Website"]
-....
+----
 
 === Insights
 
-As a user,
+As a user:
 
-* I want to see statistics about my passwords such as:
-    ** Old passwords.
-    ** Reused passwords.
-    ** Weak passwords.
-* I want to know if my login or password has been breached.
-* I want to view password usage statistics for a group, such as:
-    ** Password creation trends.
-    ** Password usage trends.
+- I want to see statistics about my passwords, such as:
+    - Old passwords.
+    - Reused passwords.
+    - Weak passwords.
+- I want to know if my credentials has been breached.
+- I want to view credential usage statistics for a group, such as:
+    - credential creation trends.
+    - credential usage trends.
 
-ifdef::env-github[]
-[source,mermaid]
-endif::[]
-ifndef::env-github[]
-[mermaid]
-endif::[]
-....
+[mermaid, format="svg"]
+----
 flowchart TD
-    User["User"] --> |View| A["Password statistics"]
-    A --> |See| B["Old/Reused/Weak passwords"]
-    A --> |Check| C["Breached logins or passwords"]
+    User["User"] --> |View| A["Credential statistics"]
+    A --> |See| B["Old/Reused/Weak credentials"]
+    A --> |Check| C["Breached logins or credentials"]
     A --> |View| D["Group usage statistics"]
     D --> |Analyze| E["Creation trends"]
     D --> |Analyze| F["Usage trends"]
-....
-
-== Services
-
-This part concerns the services we want to implement in the Polypass system.
-
-=== Authentication
-
-Use of link:https://www.keycloak.org/[Keycloak] for authentication. (This is a requirement)
-
-=== Authorization
-
-link:https://permify.co/[Permify] is an open-source authorization service for building scalable and fine-grained authorization.
-
-=== Folder
-
-Manage the structure of the folders.
-No more than 4 levels of folders.
-
-=== Tags
-
-Group credentials without necessarily using the folder system. They can have multiple tags.
-
-=== Credentials
-
-Crendentials are the data that the user wants to store.
-It has to be fully encrypted.
-
-=== Sharing
-
-Share credentials with another user.
+----
