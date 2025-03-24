@@ -166,11 +166,11 @@ This part concerns the services we want to implement in the Polypass system.
 
 === Authentication
 
-Use of [keycloak](https://www.keycloak.org/) for authentication. (This is a requirement)
+Use of link:https://www.keycloak.org/[Keycloak] for authentication. (This is a requirement)
 
 === Authorization
 
-[Permify](https://permify.co/) is an open-source authorization service for building scalable and fine-grained authorization.
+link:https://permify.co/[Permify] is an open-source authorization service for building scalable and fine-grained authorization.
 
 === Folder
 
