@@ -1,0 +1,6 @@
+==  Lexicon
+
+This lexicon defines the terms used in this document to describe the functional logic of the system.
+
+- **Login**: The process of authenticating a user to the system.
+- **Credentials**: The information used to authenticate a user to a specific system.
