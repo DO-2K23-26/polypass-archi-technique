@@ -177,6 +177,8 @@ Permify ??
 Manage the structure of the folders.
 No more than 4 levels of folders.
 
+=== Tags
+
 === Credentials
 
 Crendentials are the data that the user wants to store.
@@ -184,3 +186,4 @@ It has to be fully encrypted.
 
 === Sharing
 
+Share credentials with another user.
