@@ -166,11 +166,11 @@ This part concerns the services we want to implement in the Polypass system.
 
 === Authentication
 
-Use of keycloak for authentication. (This is a requirement)
+Use of [keycloak](https://www.keycloak.org/) for authentication. (This is a requirement)
 
 === Authorization
 
-Permify ??
+[Permify](https://permify.co/) is an open-source authorization service for building scalable and fine-grained authorization.
 
 === Folder
 
@@ -178,6 +178,8 @@ Manage the structure of the folders.
 No more than 4 levels of folders.
 
 === Tags
+
+Group credentials without necessarily using the folder system. They can have multiple tags.
 
 === Credentials
 
