@@ -137,3 +137,7 @@ flowchart TD
     D --> |Analyze| E["Creation trends"]
     D --> |Analyze| F["Usage trends"]
 ----
+
+=== Full use cases view
+
+image::src/diagrams/use-case.drawio.png[Use cases, 100%, 100%]
