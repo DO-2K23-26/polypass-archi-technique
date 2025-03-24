@@ -159,3 +159,28 @@ flowchart TD
     D --> |Analyze| E["Creation trends"]
     D --> |Analyze| F["Usage trends"]
 ....
+
+== Services
+
+This part concerns the services we want to implement in the Polypass system.
+
+=== Authentication
+
+Use of keycloak for authentication. (This is a requirement)
+
+=== Authorization
+
+Permify ??
+
+=== Folder
+
+Manage the structure of the folders.
+No more than 4 levels of folders.
+
+=== Credentials
+
+Crendentials are the data that the user wants to store.
+It has to be fully encrypted.
+
+=== Sharing
+
