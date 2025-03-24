@@ -22,7 +22,7 @@ As a user:
 
 
 
-=== Passwords Management
+=== Credentials Management
 
 As a user:
 
@@ -40,13 +40,13 @@ flowchart TD
     User --> |Add| D["Context or custom fields"]
 ----
 
-=== Passwords Sharing
+=== Credentials Sharing
 
 As a user:
 
 - I want to share my credentials with another user.
 - I want to set the date of revocation of the shared credentials.
-- I want to set the password to be only seen once.
+- I want to set the credential to be only seen once.
 - I want to define a passphrase for the shared credentials.
 
 As a guest:
@@ -59,7 +59,7 @@ As a guest:
 flowchart TD
     User["User"] --> |Share| A["Share credentials"]
     A --> |Set| B["Date of revocation"]
-    A --> |Set| C["View-once password"]
+    A --> |Set| C["View-once credential"]
     A --> |Define| D["Passphrase"]
     Guest["Guest"] --> |Use| D
     Guest --> |Copy/Paste| E["Shared credentials fields"]
@@ -84,17 +84,17 @@ flowchart TD
 
 As a user:
 
-- I want to organize my passwords using folders or tags.
+- I want to organize my credentials using folders or tags.
 - I want to create, rename, or delete folders or tags.
-- I want to move passwords between folders or tags.
-- I want to view my passwords in a tree structure based on folders or tags.
+- I want to move credentials between folders or tags.
+- I want to view my credentials in a tree structure based on folders or tags.
 
 [mermaid, format="svg"]
 ----
 flowchart TD
     User["User"] --> |Organize| A["Folders or tags"]
     A --> |Create/Rename/Delete| B["Manage folders or tags"]
-    A --> |Move| C["Passwords between folders or tags"]
+    A --> |Move| C["Credentials between folders or tags"]
     A --> |View| D["Tree structure"]
 ----
 
@@ -102,15 +102,15 @@ flowchart TD
 
 As a user:
 
-- I want to search for a password by its name.
-- I want to search for a password by its tag.
-- I want to search for a password by its website.
+- I want to search for a credential by its name.
+- I want to search for a credential by its tag.
+- I want to search for a credential by its website.
 
 [mermaid, format="svg"]
 ----
 flowchart TD
-    User["User"] --> |Search by| A["Password name"]
-    User --> |Search by| B["Password tag"]
+    User["User"] --> |Search by| A["Credential name"]
+    User --> |Search by| B["Credential tag"]
     User --> |Search by| C["Website"]
 ----
 
@@ -122,17 +122,17 @@ As a user:
     - Old passwords.
     - Reused passwords.
     - Weak passwords.
-- I want to know if my login or password has been breached.
-- I want to view password usage statistics for a group, such as:
-    - Password creation trends.
-    - Password usage trends.
+- I want to know if my credentials has been breached.
+- I want to view credential usage statistics for a group, such as:
+    - credential creation trends.
+    - credential usage trends.
 
 [mermaid, format="svg"]
 ----
 flowchart TD
-    User["User"] --> |View| A["Password statistics"]
-    A --> |See| B["Old/Reused/Weak passwords"]
-    A --> |Check| C["Breached logins or passwords"]
+    User["User"] --> |View| A["Credential statistics"]
+    A --> |See| B["Old/Reused/Weak credentials"]
+    A --> |Check| C["Breached logins or credentials"]
     A --> |View| D["Group usage statistics"]
     D --> |Analyze| E["Creation trends"]
     D --> |Analyze| F["Usage trends"]
