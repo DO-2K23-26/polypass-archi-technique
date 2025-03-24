@@ -4,3 +4,6 @@ This lexicon defines the terms used in this document to describe the functional 
 
 - **Login**: The process of authenticating a user to the system.
 - **Credentials**: The information used to authenticate a user to a specific system.
+- **Folder**: An aggregate of passwords and folders.
+- **Tag**: A label that can be attached to a password.
+- **Files**: Any Text or Binary files that can be stored securely.
