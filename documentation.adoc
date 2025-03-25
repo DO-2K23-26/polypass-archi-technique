@@ -54,9 +54,6 @@ ifndef::env-github[]
 [mermaid]
 endif::[]
 ....
----
-title: Polypass credentials data structure
----
 classDiagram
      class Credential{
          +String Website
@@ -101,7 +98,7 @@ endif::[]
 ifndef::env-github[]
 [mermaid]
 endif::[]
-.....
+....
 flowchart TD
     User["User"] --> |Share| A["Share credentials"]
     A --> |Set| B["Date of revocation"]
