@@ -3,7 +3,10 @@
 This lexicon defines the terms used in this document to describe the functional logic of the system.
 
 - **Login**: The process of authenticating a user to the system.
-- **Credentials**: The information used to authenticate a user to a specific system.
-- **Folder**: An aggregate of passwords and folders.
+- **Username**: The name of a user on a website, this information is public.
+- **Password**: The secret key used to authenticate a user to a website 
+- **Credentials**: The information used to authenticate a user to a specific system composed of a username and password.
+- **Website**: The website that the user is using to authenticate.
+- **Folder**: An aggregate of passwords and folders since it is a composite structure. Passwords can be seen as leaves and folders as nodes even though folders without folders are themselves leaves.
 - **Tag**: A label that can be attached to a password.
-- **Files**: Any Text or Binary files that can be stored securely.
+- **Files**: Any Text or Binary files that can be stored securely. **Notes** are considered as files

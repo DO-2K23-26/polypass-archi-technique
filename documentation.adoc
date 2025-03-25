@@ -16,6 +16,11 @@ As a user:
 - I want to log in to my account.
 - I want to log out of my account.
 - I want to delete my account.
+- This account must be protected by a password.
+- I want to be able to change my password.
+- My account must be identified by an email address.
+- I want to be able to change my email address if needed.
+
 
 === Credentials Management
 
@@ -33,6 +38,37 @@ flowchart TD
     User --> |Tag| B["Organize credentials"]
     User --> |Generate| C["Secure password"]
     User --> |Add| D["Context or custom fields"]
+----
+
+Here is a class diagram to better understand the relationship between the different entities: 
+
+[mermaid, format="svg"]
+----
+---
+title: Polypass credentials data structure
+---
+classDiagram
+     class Credential{
+         +String Website
+         +String Login
+         +String Password
+     }
+     note for User "this model will not be detailled since its not the goal of this documentation"
+     class User{
+          +String Email
+          +String Password
+     }
+     class Folder{
+         +String Name
+      }
+      class Tag{
+           +String Name
+           +String color
+      }
+     Folder "1" --> "0..*" Folder : Contains
+     User "1" --> "*" Credential
+     Credential "*" --> "*" Tag
+     Credential "1" --> "*" Folder
 ----
 
 === Credentials Sharing
