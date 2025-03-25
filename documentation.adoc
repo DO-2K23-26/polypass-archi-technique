@@ -31,19 +31,29 @@ As a user:
 - I want to generate a secure password.
 - I want to add context or custom fields to my credentials.
 
-[mermaid, format="svg"]
-----
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
 flowchart TD
     User["User"] --> |Store| A["Website credentials"]
     User --> |Tag| B["Organize credentials"]
     User --> |Generate| C["Secure password"]
     User --> |Add| D["Context or custom fields"]
-----
+....
 
 Here is a class diagram to better understand the relationship between the different entities: 
 
-[mermaid, format="svg"]
-----
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
 ---
 title: Polypass credentials data structure
 ---
@@ -69,7 +79,7 @@ classDiagram
      User "1" --> "*" Credential
      Credential "*" --> "*" Tag
      Credential "1" --> "*" Folder
-----
+....
 
 === Credentials Sharing
 
@@ -85,8 +95,13 @@ As a guest:
 - I want to be able to use the passphrase to see the shared credentials.
 - I want to be able to copy/paste any field of the shared credentials.
 
-[mermaid, format="svg"]
-----
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+.....
 flowchart TD
     User["User"] --> |Share| A["Share credentials"]
     A --> |Set| B["Date of revocation"]
@@ -94,7 +109,7 @@ flowchart TD
     A --> |Define| D["Passphrase"]
     Guest["Guest"] --> |Use| D
     Guest --> |Copy/Paste| E["Shared credentials fields"]
-----
+....
 
 === Encrypted Files
 
@@ -103,12 +118,17 @@ As a user:
 - I want to take notes securely.
 - I want to store files securely.
 
-[mermaid, format="svg"]
-----
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
 flowchart TD
     User["User"] --> |Take notes| A["Secure notes"]
     User --> |Store| B["Secure files"]
-----
+....
 
 === Organization
 
@@ -120,13 +140,20 @@ As a user:
 - I want to view my credentials in a tree structure based on folders or tags.
 
 [mermaid, format="svg"]
-----
+
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
 flowchart TD
     User["User"] --> |Organize| A["Folders or tags"]
     A --> |Create/Rename/Delete| B["Manage folders or tags"]
     A --> |Move| C["Credentials between folders or tags"]
     A --> |View| D["Tree structure"]
-----
+....
 
 === Search
 
@@ -136,13 +163,18 @@ As a user:
 - I want to search for a credential by its tag.
 - I want to search for a credential by its website.
 
-[mermaid, format="svg"]
-----
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
 flowchart TD
     User["User"] --> |Search by| A["Credential name"]
     User --> |Search by| B["Credential tag"]
     User --> |Search by| C["Website"]
-----
+....
 
 === Insights
 
@@ -157,8 +189,14 @@ As a user:
     - credential creation trends.
     - credential usage trends.
 
-[mermaid, format="svg"]
-----
+
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
 flowchart TD
     User["User"] --> |View| A["Credential statistics"]
     A --> |See| B["Old/Reused/Weak credentials"]
@@ -166,7 +204,7 @@ flowchart TD
     A --> |View| D["Group usage statistics"]
     D --> |Analyze| E["Creation trends"]
     D --> |Analyze| F["Usage trends"]
-----
+....
 
 === Full use cases view
 
