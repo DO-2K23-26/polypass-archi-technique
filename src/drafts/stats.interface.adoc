@@ -8,6 +8,8 @@ HTTP API to get stats about the usage of the platform.
 - GET passwords metrics
 /api/v1/stats/passwords/metrics
 
+[source,json]
+----
 {
   "data": {
     "total_passwords": 1000,
@@ -17,6 +19,7 @@ HTTP API to get stats about the usage of the platform.
     "total_strong_passwords": 650
   }
 }
+----
 
 
 POST - /api/v1/stats/passwords/breached 
@@ -24,14 +27,17 @@ body: {
   "identifiers": ["identity1", "identity2", "identity3"]
 }
 result:
-
+[source,json]
+----
 {
   "data": {
     "identifiers": ["identity1", "identity2"],
   }
 }
-
+----
 GET - /api/v1/stats/passwords/:id/usage
+[source,json]
+----
 {
   "data": {
     "usage": {
@@ -43,8 +49,10 @@ GET - /api/v1/stats/passwords/:id/usage
     }
   }
 }
-
+----
 GET - /api/v1/stats/passwords/:id/usage-shared
+[source,json]
+----
 { 
   "data": {
     "usage": {
@@ -57,17 +65,21 @@ GET - /api/v1/stats/passwords/:id/usage-shared
     }
   }
 }
+----
 === Audit Logs (Kafka)
 
 Kafka topic to store audit logs.
 
 - name: decision-audit-logs
 
+[source,json]
+----
 {
   "auth": {
-    "user_id": "123e4567-e89b-12d3-a456-426614174000",
+    "user_id": "123e4567-e89b-12d3-a456-426614174000"
   },
   "action": "login",
   "result": "success",
   "timestamp": "2023-04-15T14:32:10Z"
 }
+----
