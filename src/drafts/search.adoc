@@ -10,7 +10,9 @@ We want to search by:
 - custom fields
 
 == Collect data
-A event is call when a credential, tag and folder is created, updated or deleted. This event is used to update the search engine:
+A event is call when a credential, tag and folder is created, updated or deleted. This event is used to update the search engine.
+
+For each event we have a topic in Kafka. The topic name is the event name. 
 
 [source,typescript]
 ----
