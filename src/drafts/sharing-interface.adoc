@@ -1,0 +1,55 @@
+==== Definition
+
+Sharing is a service that allows users to share secrets with guests.
+
+==== Interfaces
+
+Sharing a secret:
+Message:
+[source,json]
+----
+{
+  "plaintext_secret": "content",
+  "hashed_secret": "content",
+  "expiration": 1742988101,
+  "is_one_time_use": false,
+}
+----
+* `plaintext_secret` is the content of the secret.
+* `hashed_secret` is the hashed content of the secret.
+* `expiration` is the date of expiration of the secret.
+* `is_one_time_use` is a boolean that indicates if the secret can only be seen once.
+
+Response:
+[source,json]
+----
+{
+  "created_at": 1742988101,
+  "id": 1
+}
+----
+* `created_at` is the date of creation of the secret.
+* `id` is the identifier of the secret.
+
+Getting a secret:
+Message:
+[source,json]
+----
+{
+  "id": 1,
+}
+----
+* `id` is the identifier of the secret.
+
+Response:
+[source,json]
+----
+{
+  "id": 1,
+  "plaintext_secret": "content",
+  "hashed_secret": "content",
+}
+----
+* `id` is the identifier of the secret.
+* `plaintext_secret` is the content of the secret.
+* `hashed_secret` is the hashed content of the secret.
