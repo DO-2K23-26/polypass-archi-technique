@@ -12,8 +12,6 @@ We want to search by:
 == Collect data
 A event is call when a credential, tag and folder is created, updated or deleted. This event is used to update the search engine:
 
-
-
 [source,typescript]
 ----
 interface Event {
@@ -24,8 +22,8 @@ interface Event {
 [source,typescript]
 ----
 interface CreateTagEvent extends Event {
-    id_tag: string; // UUID
-    id_folder: string; // UUID
+    id_tag: string;
+    id_folder: string;
     name_tag: string;
 }
 ----
@@ -33,7 +31,7 @@ interface CreateTagEvent extends Event {
 [source,typescript]
 ----
 interface CreateFolderEvent extends Event {
-    id_folder: string; // UUID
+    id_folder: string;
     name_folder: string;
 }
 ----
@@ -41,8 +39,8 @@ interface CreateFolderEvent extends Event {
 [source,typescript]
 ----
 interface CreateCredentialEvent extends Event {
-    id_credential: string; // UUID
-    id_folder: string; // UUID
+    id_credential: string;
+    id_folder: string;
     title_credential: string;
 }
 ----
@@ -50,15 +48,16 @@ interface CreateCredentialEvent extends Event {
 [source,typescript]
 ----
 interface UpdateTagEvent extends Event {
-    id_tag: string; // UUID
-    name_tag: string;
+    id_tag: string; 
+    id_folder: string; // optional
+    name_tag: string; // optional
 }
 ----
 
 [source,typescript]
 ----
 interface UpdateFolderEvent extends Event {
-    id_folder: string; // UUID
+    id_folder: string; 
     name_folder: string;
 }
 ----
@@ -66,7 +65,7 @@ interface UpdateFolderEvent extends Event {
 [source,typescript]
 ----
 interface UpdateCredentialEvent extends Event {
-    id_credential: string; // UUID
+    id_credential: string;
     title_credential: string;
 }
 ----
@@ -74,21 +73,21 @@ interface UpdateCredentialEvent extends Event {
 [source,typescript]
 ----
 interface DeleteTagEvent extends Event {
-    id_tag: string; // UUID
+    id_tag: string;
 }
 ----
 
 [source,typescript]
 ----
 interface DeleteFolderEvent extends Event {
-    id_folder: string; // UUID
+    id_folder: string;
 }
 ----
 
 [source,typescript]
 ----
 interface DeleteCredentialEvent extends Event {
-    id_credential: string; // UUID
+    id_credential: string;
 }
 ----
 
@@ -97,7 +96,7 @@ interface DeleteCredentialEvent extends Event {
 == Search engine
 This concerns tags, folders and credentials titles.
 
-We search a tag or a folder by name. We get all id of tags or folders with a name containing the search string and we get the list of credentials associated with it.
+We search a credential title, a tag or a folder by name. We get all id of tags or folders with a name containing the search string and we get the list of credentials associated with it.
 
 == Local search fields
 
