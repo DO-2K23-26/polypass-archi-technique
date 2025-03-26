@@ -10,26 +10,30 @@ include::src/drafts/lexicon.adoc[Lexicon]
 
 === User Management
 
-As a user:
+As a guest user:
 
 - I want to create an account.
 - I want to log in to my account.
+
+As a connected user:
+
 - I want to log out of my account.
 - I want to delete my account.
-- This account must be protected by a password.
 - I want to be able to change my password.
-- My account must be identified by an email address.
-- I want to be able to change my email address if needed.
+- I want to be able to change my email address.
 
 
 === Credentials Management
 
-As a user:
+As a connected user:
 
 - I want to store the credentials of a website I am using.
-- I want to tag my credentials for better organization.
 - I want to generate a secure password.
-- I want to add context or custom fields to my credentials.
+- I want to add custom fields to my credentials.
+- I want to add a note to my credentials.
+- I want to search for credentials by name, websites, identifier and custom fields.
+- I want to provide a Master Key to encrypt my credentials.
+- I want to view credentials in a tree structure based on folders or tags.
 
 ifdef::env-github[]
 [source,mermaid]
@@ -81,17 +85,29 @@ classDiagram
      Credential "1" --> "*" Folder
 ....
 
+=== Credentials Tagging
+
+As a connected admin user:
+
+- I want to tag credentials.
+- I want to create, update, or delete my tags.
+
+As a connected viewer:
+
+- I want to search for credentials by tag.
+
 === Credentials Sharing
 
-As a user:
+As a connected admin user:
 
-- I want to share my credentials with another user.
+- I want to share a credential with a guest user.
 - I want to set the date of revocation of the shared credentials.
-- I want to set the credential to be only seen once.
+- I want to set the credential to be only seen one time.
 - I want to define a passphrase for the shared credentials.
 
 As a guest:
 
+- I want to access the shared credentials.
 - I want to be able to use the passphrase to see the shared credentials.
 - I want to be able to copy/paste any field of the shared credentials.
 
@@ -101,7 +117,7 @@ endif::[]
 ifndef::env-github[]
 [mermaid]
 endif::[]
-.....
+....
 flowchart TD
     User["User"] --> |Share| A["Share credentials"]
     A --> |Set| B["Date of revocation"]
@@ -111,33 +127,22 @@ flowchart TD
     Guest --> |Copy/Paste| E["Shared credentials fields"]
 ....
 
-=== Encrypted Files
+=== Folder
 
-As a user:
+As a connected user:
 
-- I want to take notes securely.
-- I want to store files securely.
+- I want to create a folder if I am not into a folder.
+- I want to accept invitations to join a folder.
 
-ifdef::env-github[]
-[source,mermaid]
-endif::[]
-ifndef::env-github[]
-[mermaid]
-endif::[]
-....
-flowchart TD
-    User["User"] --> |Take notes| A["Secure notes"]
-    User --> |Store| B["Secure files"]
-....
+As a connected admin user:
 
-=== Organization
+- I want to create, update and delete a folder.
+- I want to invite a user to a folder.
 
-As a user:
+As a connected viewer:
 
-- I want to organize my credentials using folders or tags.
-- I want to create, rename, or delete folders or tags.
-- I want to move credentials between folders or tags.
-- I want to view my credentials in a tree structure based on folders or tags.
+- I want to view the folders.
+- I want to search for credentials by folder.
 
 [mermaid, format="svg"]
 
@@ -155,39 +160,21 @@ flowchart TD
     A --> |View| D["Tree structure"]
 ....
 
-=== Search
-
-As a user:
-
-- I want to search for a credential by its name.
-- I want to search for a credential by its tag.
-- I want to search for a credential by its website.
-
-ifdef::env-github[]
-[source,mermaid]
-endif::[]
-ifndef::env-github[]
-[mermaid]
-endif::[]
-....
-flowchart TD
-    User["User"] --> |Search by| A["Credential name"]
-    User --> |Search by| B["Credential tag"]
-    User --> |Search by| C["Website"]
-....
-
 === Insights
 
-As a user:
+As a connected viewer:
 
 - I want to see statistics about my passwords, such as:
     - Old passwords.
     - Reused passwords.
     - Weak passwords.
 - I want to know if my credentials has been breached.
+
+As a connected admin user:
 - I want to view credential usage statistics for a group, such as:
     - credential creation trends.
     - credential usage trends.
+- I want to view the credential usage statistics for shared credentials.
 
 
 ifdef::env-github[]
@@ -209,3 +196,5 @@ flowchart TD
 === Full use cases view
 
 image::src/diagrams/use-case.drawio.png[Use cases, 100%, 100%]
+
+image::src/diagrams/component-diagram.drawio.png[Component diagram, 100%, 100%]

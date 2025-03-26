@@ -3,10 +3,35 @@
 This lexicon defines the terms used in this document to describe the functional logic of the system.
 
 - **Login**: The process of authenticating a user to the system.
-- **Username**: The name of a user on a website, this information is public.
+- **Identifier**: The identifier of a user on a website, this information is public.
 - **Password**: The secret key used to authenticate a user to a website 
 - **Credentials**: The information used to authenticate a user to a specific system composed of a username and password.
 - **Website**: The website that the user is using to authenticate.
-- **Folder**: An aggregate of passwords and folders since it is a composite structure. Passwords can be seen as leaves and folders as nodes even though folders without folders are themselves leaves.
-- **Tag**: A label that can be attached to a password.
-- **Files**: Any Text or Binary files that can be stored securely. **Notes** are considered as files
+- **Folder**: An aggregate of credentials and folders since it is a composite structure. Credentials can be seen as leaves and folders as nodes even though folders without folders are themselves leaves. A folder can represent a group if more than one user are associated to it.
+- **Role**: A set of permissions that can be assigned to a user. A role is affecting all the subfolders and credentials of a folder. The role with the greater permission is used.
+* **Admin**: A user with all the rights.
+* **Viewer**: A user with read-only rights.
+- **Tag**: A label that can be attached to one or more.
+- **Notes**: Text associated with a credential.
+- **Credential Fields**: Additional fields that can be added to a credential. They can be of different times
+* **Default Fields**: Fields that are common to all credentials.
+** **Title**: The title of the credential (for full text search purpose).
+** **Websites**: The website that the user is using to authenticate.
+** **Identifier**: The identifier of a user on a website, this information is public.
+** **Password**: The secret key used to authenticate a user to a website
+** **Notes**: Text associated with a credential.
+* **Custom Fields**: Fields that can be added to a credential. they can be of different types.
+- **Master Key**: The password used to encrypt the user's credentials (encryption key used only in the frontend and to authenticate the user).
+- **Credentials Metrics**: Global metrics on the credentials.
+* **Reused Passwords**: The number of times a password is used.
+* **Weak Passwords**: The number of weak passwords.
+* **Breached Passwords**: The number of passwords that have been breached (client side check on emails).
+
+
+
+
+== Notes
+
+- All the credentials data encrypted, folder and tags not encrypted
+- Full texte search on backend for folder and
+- For the metrics the frontend is responsible to communicate with the metrics server to get the data about the breached passwords.
