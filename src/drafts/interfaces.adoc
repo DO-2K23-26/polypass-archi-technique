@@ -5,3 +5,21 @@
 === Sharing
 === Authorization
 === User
+
+== Interfaces standard
+
+- Interfaces defined in JSON Schema
+- Asynchronous communication through Avro
+
+== Event Sourcing
+=== services involved
+==== Producers
+
+- Tags
+- Credentials
+- Folders
+
+==== Consumers
+
+- Search
+- Statistics
