@@ -147,7 +147,8 @@ For each event we have a topic in Kafka. The topic name is the event name.
 }
 ----
 
-
+== Data structure
+include::data-structure.adoc[Data structure]
 
 == Search engine
 This concerns tags, folders and credentials titles.

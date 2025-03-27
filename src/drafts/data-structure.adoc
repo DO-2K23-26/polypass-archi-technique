@@ -1,0 +1,24 @@
+= Data Structure Schema
+
+== Overview
+kamaid, data-structure, png]
+----
+classDiagram
+    class Tag {
+        id_tag: string
+        name_tag: string
+        id_folders: string
+    }
+    class Credential {
+        id_credential: string
+        title_credential: string
+        id_folders: string
+        id_tags: string[]
+    }
+    class Folder {
+        id_folder: string
+        name_folder: string
+    }
+    Tag -- Credential
+    Folder -- Credential
+----
