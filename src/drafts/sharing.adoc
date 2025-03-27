@@ -2,10 +2,10 @@
 
 Sharing is a service that allows users to share secrets with guests.
 
-* `plaintext_secret` is the content of the secret.
-* `hashed_secret` is the hashed content of the secret.
+* `content` is a Key-Value based object.
 * `expiration` is the date of expiration of the secret in Unix timestamp.
 * `is_one_time_use` is a boolean that indicates if the secret can only be seen once.
+* `is_encrypted` is a boolean that indicates if the secret is encrypted.
 * `created_at` is the date of creation of the secret.
 * `id` is the identifier of the secret.
 
@@ -25,29 +25,26 @@ Message
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
-    "plaintext_secret": {
-      "type": "string",
-      "description": "The secret in plaintext form. Should not be provided if 'hashed_secret' is present."
-    },
-    "hashed_secret": {
-      "type": "string",
-      "description": "The hashed version of the secret. Should not be provided if 'plaintext_secret' is present."
+    "content":
+    {
+      "type": "object",
+      "description": "Key-Value based secret."
     },
     "expiration": {
       "type": "integer",
       "description": "Unix timestamp indicating the expiration time of the secret.",
       "minimum": 0
     },
+    "is_encrypted": {
+      "type": "boolean",
+      "description": "Indicates whether the secret is encrypted."
+    },
     "is_one_time_use": {
       "type": "boolean",
       "description": "Indicates whether the secret can only be used once."
     }
   },
-  "required": ["expiration", "is_one_time_use"],
-  "oneOf": [
-    { "required": ["plaintext_secret"], "not": { "required": ["hashed_secret"] } },
-    { "required": ["hashed_secret"], "not": { "required": ["plaintext_secret"] } }
-  ],
+  "required": ["content", "expiration", "is_one_time_use", "is_encrypted"],
   "additionalProperties": false
 }
 ----
@@ -114,20 +111,17 @@ Response
       "format": "uuid",
       "description": "Unique identifier for the object, represented as a UUID."
     },
-    "plaintext_secret": {
-      "type": "string",
-      "description": "The secret in plaintext form. Must not be provided if 'hashed_secret' is present."
+    "is_encrypted": {
+      "type": "boolean",
+      "description": "Indicates whether the secret is encrypted."
     },
-    "hashed_secret": {
-      "type": "string",
-      "description": "The hashed version of the secret. Must not be provided if 'plaintext_secret' is present."
-    }
+    "content":
+    {
+      "type": "object",
+      "description": "Key-Value based secret."
+    },
   },
-  "required": ["id"],
-  "oneOf": [
-    { "required": ["plaintext_secret"] },
-    { "required": ["hashed_secret"] }
-  ],
+  "required": ["id", "is_encrypted", "content"],
   "additionalProperties": false
 }
 ----
