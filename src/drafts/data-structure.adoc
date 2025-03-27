@@ -5,7 +5,7 @@ This document describes the data structure schema for the Kamaid application. Th
 The search service will find credentials based on the tags names, folders name or my credential title.
 
 == Data Structure
-kamaid, data-structure, png]
+[mermaid, data-structure, png]
 ----
 classDiagram
     class Tag {
