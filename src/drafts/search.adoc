@@ -326,15 +326,70 @@ NoSQL document database
 sequenceDiagram
     participant User
     participant Frontend
-    participant Backend
+    participant AgregationService
+    participant SearchService
     participant SearchEngine
+    participant OrganisationService
+    participant CredentialService
 
     User->>Frontend: Enter search string
-    Frontend->>Backend: GET /search/credentials?title={searchString}
-    Backend->>SearchEngine: Query credentials by title
-    SearchEngine-->>Backend: Return matching credentials
-    Backend-->>Frontend: Return credentials list
+    Frontend->>AgregationService: GET /search/credentials?title={searchString}
+    AgregationService->>SearchService: Query credentials by title
+    SearchService->>SearchEngine: Query credentials by title
+    SearchEngine-->>SearchService: Return matching credentials ids
+    SearchService-->>AgregationService: Return credentials ids
+    AgregationService->>CredentialService: GET /credentials/{credentialId}
+    CredentialService-->>AgregationService: Return credentials
+    AgregationService-->>Frontend: Return credentials list
     Frontend-->>User: Display credentials
+----
+
+=== Search by Tags
+
+[mermaid]
+----
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant AgregationService
+    participant SearchService
+    participant SearchEngine
+    participant OrganisationService
+
+    User->>Frontend: Enter tag name
+    Frontend->>AgregationService: GET /search/tags?name={tagName}
+    AgregationService->>SearchService: Query tags by name
+    SearchService->>SearchEngine: Query tags by name
+    SearchEngine-->>SearchService: Return matching tags
+    SearchService-->>AgregationService: Return tag ids
+    AgregationService->>OrganisationService: GET /tags/{tagId}
+    OrganisationService-->>AgregationService: Return tags
+    AgregationService-->>Frontend: Return tags list
+    Frontend-->>User: Display tags
+----
+
+=== Search by Folders
+
+[mermaid]
+----
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant AgregationService
+    participant SearchService
+    participant SearchEngine
+    participant OrganisationService
+
+    User->>Frontend: Enter folder name
+    Frontend->>AgregationService: GET /search/folders?name={folderName}
+    AgregationService->>SearchService: Query folders by name
+    SearchService->>SearchEngine: Query folders by name
+    SearchEngine-->>SearchService: Return matching folders
+    SearchService-->>AgregationService: Return folder ids
+    AgregationService->>OrganisationService: GET /folders/{folderId}
+    OrganisationService-->>AgregationService: Return folders
+    AgregationService-->>Frontend: Return folders list
+    Frontend-->>User: Display folders
 ----
 
 === Search by Title and Folder
@@ -344,20 +399,31 @@ sequenceDiagram
 sequenceDiagram
     participant User
     participant Frontend
-    participant Backend
+    participant AgregationService
+    participant SearchService
     participant SearchEngine
+    participant OrganisationService
+    participant CredentialService
 
     User->>Frontend: Enter folder name
-    Frontend->>Backend: GET /search/folders?name={folderName}
-    Backend->>SearchEngine: Query folders by name
-    SearchEngine-->>Backend: Return matching folders
-    Backend-->>Frontend: Return folders list
+    Frontend->>AgregationService: GET /search/folders?name={folderName}
+    AgregationService->>SearchService: Query folders by name
+    SearchService->>SearchEngine: Query folders by name
+    SearchEngine-->>SearchService: Return matching folders
+    SearchService-->>AgregationService: Return folder ids
+    AgregationService->>OrganisationService: GET /folders/{folderId}
+    OrganisationService-->>AgregationService: Return folders
+    AgregationService-->>Frontend: Return folders list
     Frontend-->>User: Display folders for selection
     User->>Frontend: Select a folder
-    Frontend->>Backend: GET /search/credentials?title={searchString}&folder_id={selectedFolderId}
-    Backend->>SearchEngine: Query credentials by title and folder ID
-    SearchEngine-->>Backend: Return filtered credentials
-    Backend-->>Frontend: Return credentials list
+    Frontend->>AgregationService: GET /search/credentials?title={searchString}&folder_id={selectedFolderId}
+    AgregationService->>SearchService: Query credentials by title and folder ID
+    SearchService->>SearchEngine: Query credentials by title and folder ID
+    SearchEngine-->>SearchService: Return filtered credentials
+    SearchService-->>AgregationService: Return credential ids
+    AgregationService->>CredentialService: GET /credentials/{credentialId}
+    CredentialService-->>AgregationService: Return credentials
+    AgregationService-->>Frontend: Return credentials list
     Frontend-->>User: Display filtered credentials
 ----
 
@@ -368,19 +434,30 @@ sequenceDiagram
 sequenceDiagram
     participant User
     participant Frontend
-    participant Backend
+    participant AgregationService
+    participant SearchService
     participant SearchEngine
+    participant OrganisationService
+    participant CredentialService
 
     User->>Frontend: Enter search string with tag filter
-    Frontend->>Backend: GET /search/tags?name={searchString}
-    Backend->>SearchEngine: Query tags by name
-    SearchEngine-->>Backend: Return matching tags
-    Backend-->>Frontend: Return tags list
+    Frontend->>AgregationService: GET /search/tags?name={searchString}
+    AgregationService->>SearchService: Query tags by name
+    SearchService->>SearchEngine: Query tags by name
+    SearchEngine-->>SearchService: Return matching tags
+    SearchService-->>AgregationService: Return tag ids
+    AgregationService->>OrganisationService: GET /tags/{tagId}
+    OrganisationService-->>AgregationService: Return tags
+    AgregationService-->>Frontend: Return tags list
     Frontend-->>User: Display tags for selection
     User->>Frontend: Select tags
-    Frontend->>Backend: GET /search/credentials?tag_ids={selectedTagIds}
-    Backend->>SearchEngine: Query credentials by selected tag IDs
-    SearchEngine-->>Backend: Return filtered credentials
-    Backend-->>Frontend: Return credentials list
+    Frontend->>AgregationService: GET /search/credentials?tag_ids={selectedTagIds}
+    AgregationService->>SearchService: Query credentials by selected tag IDs
+    SearchService->>SearchEngine: Query credentials by selected tag IDs
+    SearchEngine-->>SearchService: Return filtered credentials
+    SearchService-->>AgregationService: Return credential ids
+    AgregationService->>CredentialService: GET /credentials/{credentialId}
+    CredentialService-->>AgregationService: Return credentials
+    AgregationService-->>Frontend: Return credentials list
     Frontend-->>User: Display filtered credentials
 ----
