@@ -1,0 +1,195 @@
+==== **Definition**
+
+Sharing is a service that allows users to share secrets with guests.
+
+* `content` is a Key-Value based object.
+* `expiration` is the date of expiration of the secret in Unix timestamp.
+* `is_one_time_use` is a boolean that indicates if the secret can only be seen once.
+* `is_encrypted` is a boolean that indicates if the secret is encrypted.
+* `created_at` is the date of creation of the secret.
+* `id` is the identifier of the secret.
+
+In your payload you will have either plaintext_secret or hashed_secret but not both.
+
+Refer to the link:./lexicon.adoc[lexicon] for more information about the terms used in this interface.
+
+==== **Interfaces**
+
+===== __Sharing a secret__
+
+****
+Message
+[source,json]
+----
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "content":
+    {
+      "type": "object",
+      "description": "Key-Value based secret."
+    },
+    "expiration": {
+      "type": "integer",
+      "description": "Unix timestamp indicating the expiration time of the secret.",
+      "minimum": 0
+    },
+    "is_encrypted": {
+      "type": "boolean",
+      "description": "Indicates whether the secret is encrypted."
+    },
+    "is_one_time_use": {
+      "type": "boolean",
+      "description": "Indicates whether the secret can only be used once."
+    }
+  },
+  "required": ["content", "expiration", "is_one_time_use", "is_encrypted"],
+  "additionalProperties": false
+}
+----
+****
+
+
+****
+Response
+[source,json]
+----
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "created_at": {
+      "type": "integer",
+      "description": "Unix timestamp indicating when the object was created.",
+      "minimum": 0
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the object, represented as a UUID."
+    },
+  },
+  "required": ["created_at", "id"],
+  "additionalProperties": false
+}
+----
+****
+
+===== __Getting a secret__
+
+****
+Message
+[source,json]
+----
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the object, represented as a UUID."
+    },
+  },
+  "required": ["id"],
+  "additionalProperties": false
+}
+----
+****
+
+****
+Response
+[source,json]
+----
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the object, represented as a UUID."
+    },
+    "is_encrypted": {
+      "type": "boolean",
+      "description": "Indicates whether the secret is encrypted."
+    },
+    "content":
+    {
+      "type": "object",
+      "description": "Key-Value based secret."
+    },
+  },
+  "required": ["id", "is_encrypted", "content"],
+  "additionalProperties": false
+}
+----
+****
+
+==== **Sequence Diagram**
+
+===== __User's client__
+
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
+sequenceDiagram
+    participant User's client
+    participant Sharing API
+    participant Kafka
+
+    alt the secret needs to be hashed
+        User's client->>User's client: Create a hash
+    end
+    
+    User's client->>Sharing API: Send the secret
+
+    Sharing API->>Sharing API: Store the secret
+
+    Sharing API->>Kafka: Send analytics metrics
+
+    Sharing API-->>User's client: Send the secret id
+....
+
+===== __Guest's client__
+
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
+sequenceDiagram
+    participant Sharing API
+    participant Guest's client
+    participant Kafka
+
+    Guest's client->>Sharing API: Request the secret
+    Sharing API->>Kafka: Send analytics metrics
+    
+    alt the secret one time use
+        Sharing API->>Sharing API: Delete the secret
+        Sharing API->>Kafka: Send analytics metrics
+    end
+
+    Sharing API-->>Guest's client: Send the secret
+    
+    alt the secret is hashed
+        Guest's client->>Guest's client: Decrypt the hash
+    end
+
+    alt copying the secret
+        Guest's client->>Sharing API: Send a copying request
+        Sharing API->>Kafka: Send analytics metrics
+    end
+....
+
+==== **Cron**
+
+A cron job is responsible for deleting secrets with an expiration date. The cron's execution date is set to the nearest secret expiration date.

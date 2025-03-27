@@ -2,7 +2,11 @@
 === Search
 === Statistics
 === Credential
+
 === Sharing
+
+include::sharing.adoc[]
+
 === Authorization
 === User
 
