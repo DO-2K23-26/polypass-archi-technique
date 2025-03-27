@@ -157,7 +157,7 @@ The search engine service runs server-side. It enables finding credentials, tags
 
 Since data is encrypted client-side, the search engine can't search by content, only by name.
 
-Moreover, the Search Engine service does not know of the existence of other services. As such, it is not responsible for fetching data from/querying other services. This is done by the API Gateway service. As such, all data needed as input for the Search Engine is given to it by the API Gateway service when it calls the Search Engine service.
+Moreover, the Search Engine service does not know of the existence of other services. As such, it is not responsible for fetching data from/querying other services. This is done by the API Gateway service. As such, all data needed as input for the Search Engine is given to it by the API Gateway service when it calls the Search Engine service. This way, the Search Engine keeps its independance from the other services. [WIP] It listens to events, consumes events that write new data (tags, etc.) to have it in its search index; answers search events with found elements. The database is read-optimized? For search efficiency? [/WIP]
 
 However, it knows of the common data structures/types such as Tags, Folders, Credentials... And implements the logic to search for them.
 
