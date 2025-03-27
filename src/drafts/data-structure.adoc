@@ -1,0 +1,33 @@
+= Data Structure Schema
+
+== Overview
+This document describes the data structure schema for the Kamaid application. The schema is composed of three main entities: `Tag`, `Credential`, and `Folder`. 
+The search service will find credentials based on the tags names, folders name or my credential title.
+
+== Data Structure
+[mermaid, data-structure, png]
+----
+classDiagram
+    class Tag {
+        id_tag: string
+        name_tag: string
+        id_folders: string
+    }
+    class Credential {
+        id_credential: string
+        title_credential: string
+        id_folders: string
+        id_tags: string[]
+    }
+    class Folder {
+        id_folder: string
+        name_folder: string
+    }
+    class User {
+        id_user: string
+        id_folders: string[]
+    }
+    Tag -- Credential
+    Folder -- Credential
+    User -- Folder
+----
