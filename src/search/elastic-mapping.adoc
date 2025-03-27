@@ -1,4 +1,4 @@
-= Data Structure Schema
+== Data Structure Schema
 
 == Overview
 This document describes the data structure schema for the Kamaid application. The schema is composed of three main entities: `Tag`, `Credential`, and `Folder`. 

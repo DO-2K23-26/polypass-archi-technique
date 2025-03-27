@@ -149,7 +149,8 @@ For each event we have a topic in Kafka. The topic name is the event name.
 ----
 
 == Data structure
-include::data-structure.adoc[Data structure]
+
+include::elastic-mapping.adoc[]
 
 == Search engine
 This concerns tags, folders and credentials titles.
@@ -455,6 +456,32 @@ sequenceDiagram
     AgregationService->>SearchService: Query credentials by selected tag IDs
     SearchService->>SearchEngine: Query credentials by selected tag IDs
     SearchEngine-->>SearchService: Return filtered credentials
+    SearchService-->>AgregationService: Return credential ids
+    AgregationService->>CredentialService: GET /credentials/{credentialId}
+    CredentialService-->>AgregationService: Return credentials
+    AgregationService-->>Frontend: Return credentials list
+    Frontend-->>User: Display filtered credentials
+----
+
+
+=== Search by Folder Name and Tag Name
+
+[mermaid]
+----
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant AgregationService
+    participant SearchService
+    participant SearchEngine
+    participant OrganisationService
+    participant CredentialService
+
+    User->>Frontend: Enter search string with folder and tag filters
+    Frontend->>AgregationService: GET /search/credentials?folder_name={folderName}&tag_name={tagName}
+    AgregationService->>SearchService: Query credentials by folder name and tag name
+    SearchService->>SearchEngine: Query credentials by folder name and tag name
+    SearchEngine-->>SearchService: Return matching credentials
     SearchService-->>AgregationService: Return credential ids
     AgregationService->>CredentialService: GET /credentials/{credentialId}
     CredentialService-->>AgregationService: Return credentials
