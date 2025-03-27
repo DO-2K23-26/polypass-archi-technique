@@ -101,6 +101,7 @@ Kafka topic to store audit logs.
 ----
 
 - name: credential-audit-logs
+
 [source,json]
 ----
 {

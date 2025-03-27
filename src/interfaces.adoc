@@ -1,0 +1,53 @@
+=== Organization
+
+include::organization/interfaces.adoc[Organization Interfaces]
+
+include::organization/classes.adoc[Organization Classes]
+
+include::organization/folder-flows.adoc[Folder Flows]
+
+include::organization/tag-flows.adoc[Tag Flows]
+
+=== Search
+
+include::search/search.adoc[Search]
+
+include::search/elastic-mapping.adoc[ElasticSearch Mapping]
+
+=== Statistics
+
+include::statistics/interfaces.adoc[Statistics]
+
+include::statistics/flows.adoc[Statistics Flows]
+
+=== Credential
+
+include::credentials/models.adoc[Credential]
+
+include::credentials/flows.adoc[Credential Flows]
+
+=== Sharing
+
+include::sharing/sharing.adoc[Sharing]
+
+=== Authorization
+
+=== User
+
+== Interfaces standard
+
+- Interfaces defined in JSON Schema
+- Asynchronous communication through Avro
+
+== Event Sourcing
+=== services involved
+==== Producers
+
+- Tags
+- Credentials
+- Folders
+
+==== Consumers
+
+- Search
+- Statistics

@@ -6,7 +6,7 @@ The polypass team
 
 This part concerns the features we want to implement in the Polypass system.
 
-include::src/drafts/lexicon.adoc[Lexicon]
+include::src/lexicon.adoc[Lexicon]
 
 === User Management
 
@@ -67,7 +67,7 @@ classDiagram
          +String Login
          +String Password
      }
-     note for User "this model will not be detailled since its not the goal of this documentation"
+     note for User "this model will not be detailled since it's not the goal of this documentation"
      class User{
           +String Email
           +String Password
@@ -193,8 +193,12 @@ flowchart TD
     D --> |Analyze| F["Usage trends"]
 ....
 
+== Services interaction and interfaces
+
+include::src/interfaces.adoc[Interfaces]
+
 === Full use cases view
 
 image::src/diagrams/use-case.drawio.png[Use cases, 100%, 100%]
 
-image::src/diagrams/component-diagram.drawio.png[Component diagram, 100%, 100%]
+

@@ -26,12 +26,3 @@ This lexicon defines the terms used in this document to describe the functional 
 * **Reused Passwords**: The number of times a password is used.
 * **Weak Passwords**: The number of weak passwords.
 * **Breached Passwords**: The number of passwords that have been breached (client side check on emails).
-
-
-
-
-== Notes
-
-- All the credentials data encrypted, folder and tags not encrypted
-- Full texte search on backend for folder and
-- For the metrics the frontend is responsible to communicate with the metrics server to get the data about the breached passwords.

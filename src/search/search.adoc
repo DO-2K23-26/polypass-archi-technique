@@ -1,4 +1,4 @@
-= Search
+== Search
 
 We want to search by:
 
