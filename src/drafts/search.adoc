@@ -273,3 +273,46 @@ NoSQL document database
     credential_id: String
     folder_id: String
 }
+
+
+
+== Api 
+
+=== Search
+
+=== API Routes Overview
+
+==== Search Tags by Name
+
+* **Route**: `GET /search/tags`
+* **Query Parameters**:
+  - `name` (optional): A string representing the partial or full name of the tag to search for.
+* **Response**:
+  - **200 OK**: Returns a JSON array of tags matching the search criteria.
+    Each tag object contains:
+    - `id_tag`: The unique identifier of the tag (string).
+    - `name_tag`: The name of the tag (string).
+
+==== Search Folders by Name
+
+* **Route**: `GET /search/folders`
+* **Query Parameters**:
+  - `name` (optional): A string representing the partial or full name of the folder to search for.
+* **Response**:
+  - **200 OK**: Returns a JSON array of folders matching the search criteria.
+    Each folder object contains:
+    - `id_folder`: The unique identifier of the folder (string).
+    - `name_folder`: The name of the folder (string).
+
+==== Search Credentials by Title
+
+* **Route**: `GET /search/credentials`
+* **Query Parameters**:
+  - `title` (optional): A string representing the partial or full title of the credential to search for.
+  - `tag_ids` (optional): An array of strings representing tag IDs to filter credentials.
+  - `folder_id` (optional): A string representing the folder ID to filter credentials.
+* **Response**:
+  - **200 OK**: Returns a JSON array of credentials matching the search criteria.
+    Each credential object contains:
+    - `id_credential`: The unique identifier of the credential (string).
+    - `title_credential`: The title of the credential (string).
