@@ -1,0 +1,58 @@
+== Create a Folder
+
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
+sequenceDiagram
+    participant Frontend
+    participant Organization
+    participant Kafka
+    Frontend->>Organization: CreateFolder
+      Organization->>Organization: Create a Folder
+      Note over Organization: To be developed
+    alt Creation success
+        Organization-->>Kafka: CreateFolderEvent
+        Organization->>Frontend: Folder created
+    else Creation failed
+        Organization->>Frontend: Folder creation failed
+    end
+....
+
+== Add member to Folder
+
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
+sequenceDiagram
+    participant Frontend
+    participant Kafka
+    participant Organization
+    participant MongoDB
+    Frontend->>Organization: ShareFolder
+    Organization->>MongoDB: Verify if member already present in subFolder
+
+    alt Already member of a subFolder
+        MongoDB-->>Organization: Warning
+        Organization->>Organization: Delete rights from subFolder
+    else Not a member of a subFolder
+        MongoDB-->>Organization: Ok
+    end
+
+    Organization->>Organization: Add Member to folder
+
+    alt Share success
+        Organization-->>Kafka: ShareFolderEvent
+        Organization->>Frontend: ShareFolder
+    else Share failed
+        Organization-->>Kafka: ShareFolderEventFailed
+        Organization->>Frontend: ShareFolder Failed
+    end
+....
