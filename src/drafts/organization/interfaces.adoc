@@ -1,0 +1,46 @@
+==== Folder
+[source,json]
+----
+{
+  "type":"object",
+  "properties":{
+    "id": {"type":"string", "format": "uuid"},
+    "name": {"type":"string"},
+    "description": {"type":"string"},
+    "icon": {"type":"string"},
+    "created_at": {"type":"string", "format": "date"},
+    "updated_at": {"type":"string", "format": "date"},
+    "parent_id": {"type":"string", "format": "uuid"},
+    "created_by": {"type":"string", "format": "uuid"}
+  }
+}
+----
+
+==== Tag
+[source,json]
+----
+{
+  "type":"object",
+  "properties":{
+    "id": {"type":"string", "format": "uuid" },
+    "name": {"type":"string"},
+    "color": {"type":"string", "format": "hexadecimal"},
+    "created_at": {"type":"string", "format": "date"},
+    "updated_at": {"type":"string", "format": "date"},
+    "folder_id": {"type":"string", "format": "uuid"},
+    "created_by": {"type":"string", "format": "uuid"}
+  }
+}
+----
+
+=== Tag - Credentail
+[source,json]
+----
+{
+  "type":"object",
+  "properties": {
+    "id_tag": {"type":"string", "format": "uuid"},
+    "id_credential": {"type":"string", "format": "uuid"}
+  }
+}
+----

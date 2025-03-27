@@ -1,0 +1,44 @@
+Class diagram
+
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
+classDiagram
+    Folder "0..1" <-- "*" Folder
+    Folder "1" *-- "*" Tag
+    Tag "1" *-- "*" TagCredential
+    Folder "1" *-- "*" CredentialFolder
+    class Folder{
+        +Uuid id
+        +String[] members
+        +String name
+        +String description
+        +String icon
+        +Date created_at
+        +Data updated_at
+        +Uuid parent_id
+        +Uuid created_by
+    }
+    class Tag{
+        +Uuid id
+        +String name
+        +Stringcolor
+        +String icon
+        +Date created_at
+        +Date updated_at
+        +Uuid folder_id
+        +Uuid created_by
+    }
+    class TagCredential{
+        +Uuid id_tag
+        +Uuid id_credential
+    }
+    class CredentialFolder{
+        +Uuid id_credential
+        +Uuid id_folder
+    }
+....

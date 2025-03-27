@@ -1,0 +1,49 @@
+== Attribute a Tag
+
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
+sequenceDiagram
+    participant Frontend
+    participant Organization
+    participant PostgreSQL
+    participant KafkaK
+    Frontend->>Organization: Attribute Tag to credential
+    Organization->>PostgreSQL: Get Tag in Credential folder or parent
+    alt Tag exists
+        PostgreSQL-->>Organization: Tag
+    else Tag doesn't exist
+        PostgreSQL-->>Organization: null
+        Organization->>Organization: Create Tag
+    end
+        Organization->>PostgreSQL: Attribute Tag to Credential
+        Organization->>KafkaK: Publish Tag
+        Organization-->>Frontend: Tag created
+....
+
+"Get Tag in Credential folder or parent" means we will search for the tag in the credential folder and in the parent folders (never in the children).
+
+== Create a Tag
+
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
+sequenceDiagram
+    participant Frontend
+    participant Organization
+    participant PostgreSQL
+    participant KafkaK
+    Frontend->>Organization: Create Tag
+    Organization->>PostgreSQL: Create Tag
+    Organization->>KafkaK: Publish Tag
+    Organization-->>Frontend: Tag created
+....
+
