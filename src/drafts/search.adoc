@@ -162,8 +162,85 @@ We search a credential title, a tag or a folder by name. We get all id of tags o
 
 This could be a sequence diagram, and a use-case diagram.
 
-1. User types a search string in the search bar.
-2. Frontend fetches /search/tags
+- User types a search string in the search bar.
+- The frontend should show something like this. We are at step 1. :
+
+```
+                                  User has written a search query "Spot".
+
+                                  1. Before pressing "Enter":
+
+                                    ┌─────────────────────────────────────────┐
+                                    │Search for: Spot                         │
+                                    └─────────────────────────────────────────┘
+                                    │                                         │
+                                    │  Search in folders:                     │
+                                    │                                         │
+                                    │    in: Spoots                           │
+                                    │                                         │
+                                    │    in: Spotpolpot                       │
+                                    │                                         │
+                                    │                                         │
+                                    │  Search in tags:                        │
+                                    │                                         │
+                                    │    tag: Spotted                         │
+                                    │                                         │
+                                    │    tag: Spottz                          │
+                                    │                                         │
+                                    └─────────────────┬─────┬─────────────────┘
+                                                      │     │
+                                                      │     │
+2.1. After pressing "Enter":                          │     │      2.2. After clicking on "in: Spoots"
+                                                      │     │
+  ┌─────────────────────────────────────────┐   ◄─────┘     └───►    ┌─────────────────────────────────────────┐
+  │Search for: Spot                         │                        │Search for: [in: Spoots]                 │
+  └─────────────────────────────────────────┘                        └─────────────────────────────────────────┘
+  │                                         │                        │                                         │
+  │  Spotifyaccount                         │                        │  In folder Spoots:                      │
+  │                                         │                        │                                         │
+  │  Spotify2ndaccount                      │                        │   Carrefour                             │
+  │                                         │                        │                                         │
+  │                                         │                        │   lkml.org                              │
+  │                                         │                        │                                         │
+  │                                         │                        │   Spotifyaccount                        │
+  │                                         │                        │                                         │
+  │                                         │                        │   kernelorgaccount                      │
+  │                                         │                        │                                         │
+  │                                         │                        │                                         │
+  │                                         │                  ┌──── │                                         │
+  │                                         │                  │     │                                         │
+  └─────────────────────────────────────────┘                  │     └─────────────────────────────────────────┘
+                                                               │
+                                                               │
+                                                               │    User writes a search query "Spot".
+                                                               │
+                                                               │    3. After pressing "Enter":
+                                                               │
+                                                               │      ┌─────────────────────────────────────────┐
+                                                               │      │Search for: Spot                         │
+                                                               │      └─────────────────────────────────────────┘
+                                                               └───►  │                                         │
+                                                                      │  In folder Spoots:                      │
+                                                                      │                                         │
+                                                                      │   Spotifyaccount                        │
+                                                                      │                                         │
+                                                                      │                                         │
+                                                                      │                                         │
+                                                                      │                                         │
+                                                                      │                                         │
+                                                                      │                                         │
+                                                                      │                                         │
+                                                                      │                                         │
+                                                                      │                                         │
+                                                                      │                                         │
+                                                                      └─────────────────────────────────────────┘
+```
+
+- At step 1., the frontend needs to display tags and folders to search in. For this purpose, it fetches /search/tags and /search/folders. Payload includes tag name or folder name respectively. The search service returns a list of tags (or folders) that match the user (user's ID from JWT).
+- At step 2.1., the user has sent a search query at /search/credentials with payload {search: "Spot", tag_ids: [], folder: null}. The search service returns a list of credentials that match the search string.
+- At step 2.2 however, the user sends a search query at /search/credentials with payload {search: "", tag_ids: [], folder: "Spoots"}. The search service returns a list of credentials that match the search string (empty, so all credentials) and are in the folder "Spoots".
+- At step 3., the user fills in the query, in the previously given folder, at /search/credentials with payload {search: "Spot", tag_ids: [], folder: "Spoots"}. The search service returns a list of credentials that match the search string and are in the folder "Spoots".
+
 The search string is sent to the search engine. The search engine returns a list of tags, folders and credentials that match the search string.
 
 === Search Engine thingy
