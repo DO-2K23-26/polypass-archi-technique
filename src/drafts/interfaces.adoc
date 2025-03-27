@@ -1,6 +1,6 @@
 === Organization
 === Search
-include::search.adoc[Search]
+include::search/search.adoc[Search]
 
 === Statistics
 
