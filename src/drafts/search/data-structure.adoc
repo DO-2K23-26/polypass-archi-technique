@@ -9,20 +9,22 @@ The search service will find credentials based on the tags names, folders name o
 ----
 classDiagram
     class Tag {
-        id_tag: string
-        name_tag: string
-        id_folders: string
+        id: string
+        name: string
+        id_folder: string
     }
     class Credential {
-        id_credential: string
-        title_credential: string
-        id_folders: string
-        id_tags: string[]
+        id: string
+        title: string
+        tags: Tag[]
+        folder: Folder
     }
     class Folder {
-        id_folder: string
-        name_folder: string
+        id: string
+        name: string
     }
-    Tag -- Credential
-    Folder -- Credential
+    class User {
+        id: string
+        id_folders: string[]
+    }
 ----
