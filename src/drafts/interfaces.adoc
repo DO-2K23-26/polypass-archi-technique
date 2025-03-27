@@ -1,6 +1,9 @@
 === Organization
 === Search
+include::search/search.adoc[Search]
+
 === Statistics
+
 === Credential
 
 === Sharing
@@ -8,6 +11,7 @@
 include::sharing.adoc[]
 
 === Authorization
+
 === User
 
 == Interfaces standard
