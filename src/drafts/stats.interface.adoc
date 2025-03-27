@@ -1,0 +1,115 @@
+=== Stats interface
+
+HTTP API to get stats about the usage of the platform.
+
+
+==== Endpoints
+
+- GET passwords metrics
+/api/v1/stats/passwords/metrics
+
+[source,json]
+----
+{
+  "data": {
+    "total_passwords": "1000",
+    "total_breached_passwords": "100",
+    "total_weak_passwords": "200",
+    "total_reused_passwords": "50",
+    "total_strong_passwords": "650"
+  }
+}
+----
+
+
+POST - /api/v1/stats/passwords/breached
+[source,json]
+----
+{
+  "body": {
+    "identifiers": [
+      {
+        "identifier": "identity1",
+        "website": "website1"
+      }
+    ]
+  }
+}
+----
+result:
+[source,json]
+----
+{
+  "data": {
+    "identifiers": [
+      {
+        "identifier": "identity1",
+        "website": "website1"
+      }
+    ]
+  }
+}
+----
+GET - /api/v1/stats/passwords/:id/usage
+[source,json]
+----
+{
+  "data": {
+    "usage": {
+      "total_usage": "100",
+      "last_30_days": "50",
+      "last_90_days": "25",
+      "last_180_days": "10",
+      "last_365_days": "5"
+    }
+  }
+}
+----
+GET - /api/v1/stats/passwords/:id/usage-shared
+[source,json]
+----
+{ 
+  "data": {
+    "usage": {
+      "total_usage": "100",
+      "last_30_days": "50",
+      "last_90_days": "25",
+      "last_180_days": "10",
+      "last_365_days": "5",
+      "devices": "4"
+    }
+  }
+}
+----
+=== Audit Logs (Kafka)
+
+Kafka topic to store audit logs.
+
+- name: decision-audit-logs
+
+[source,json]
+----
+{
+  "auth": {
+    "user_id": "123e4567-e89b-12d3-a456-426614174000"
+  },
+  "action": "create",
+  "credential": "credential_id",
+  "result": "success",
+  "timestamp": "2023-04-15T14:32:10Z"
+}
+----
+
+- name: credential-audit-logs
+[source,json]
+----
+{
+  "auth": {
+    "user_id": "123e4567-e89b-12d3-a456-426614174000"
+  },
+  "credential_id": "123e4567-e89b-12d3-a456-426614174000",
+  "action": "copy",
+  "timestamp": "2023-04-15T14:32:10Z"
+}
+----
+

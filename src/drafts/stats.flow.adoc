@@ -1,0 +1,36 @@
+Get frontendActions
+
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
+sequenceDiagram
+    participant Frontend
+    participant Insigths
+    Frontend->>Insigths: CredentialEvent
+    Insigths->>Insigths: Store CredentialEvent
+....
+
+
+Get breachedCredentials
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
+sequenceDiagram
+    participant Frontend
+    participant Insigths
+    participant HIBP
+    Frontend->>Insigths: Get breached credentials
+    Insigths->>HIBP: Get breached credentials
+    HIBP->>Insigths: Return breached credentials
+    Insigths->>Insigths: Check breached credentials
+    Insigths->>Frontend: return breached credentials
+....
+
