@@ -247,17 +247,21 @@ NoSQL document database
 sequenceDiagram
     participant User
     participant Frontend
-    participant AgreementService
+    participant AgregationService
     participant SearchService
     participant SearchEngine
+    participant OrganisationService
+    participant CredentialService
 
     User->>Frontend: Enter search string
-    Frontend->>SearchService: GET /search/credentials?title={searchString}
+    Frontend->>AgregationService: GET /search/credentials?title={searchString}
+    AgregationService->>SearchService: Query credentials by title
     SearchService->>SearchEngine: Query credentials by title
     SearchEngine-->>SearchService: Return matching credentials ids
-    SearchService->>AgregationService: GET /credentials/{credentialId}
-    AgregationService-->>SearchService: Return credentials
-    SearchService-->>Frontend: Return credentials list
+    SearchService-->>AgregationService: Return credentials ids
+    AgregationService->>CredentialService: GET /credentials/{credentialId}
+    CredentialService-->>AgregationService: Return credentials
+    AgregationService-->>Frontend: Return credentials list
     Frontend-->>User: Display credentials
 ----
 
@@ -268,14 +272,20 @@ sequenceDiagram
 sequenceDiagram
     participant User
     participant Frontend
+    participant AgregationService
     participant SearchService
     participant SearchEngine
+    participant OrganisationService
 
     User->>Frontend: Enter tag name
-    Frontend->>SearchService: GET /search/tags?name={tagName}
+    Frontend->>AgregationService: GET /search/tags?name={tagName}
+    AgregationService->>SearchService: Query tags by name
     SearchService->>SearchEngine: Query tags by name
     SearchEngine-->>SearchService: Return matching tags
-    SearchService-->>Frontend: Return tags list
+    SearchService-->>AgregationService: Return tag ids
+    AgregationService->>OrganisationService: GET /tags/{tagId}
+    OrganisationService-->>AgregationService: Return tags
+    AgregationService-->>Frontend: Return tags list
     Frontend-->>User: Display tags
 ----
 
@@ -286,17 +296,22 @@ sequenceDiagram
 sequenceDiagram
     participant User
     participant Frontend
+    participant AgregationService
     participant SearchService
     participant SearchEngine
+    participant OrganisationService
 
     User->>Frontend: Enter folder name
-    Frontend->>SearchService: GET /search/folders?name={folderName}
+    Frontend->>AgregationService: GET /search/folders?name={folderName}
+    AgregationService->>SearchService: Query folders by name
     SearchService->>SearchEngine: Query folders by name
     SearchEngine-->>SearchService: Return matching folders
-    SearchService-->>Frontend: Return folders list
+    SearchService-->>AgregationService: Return folder ids
+    AgregationService->>OrganisationService: GET /folders/{folderId}
+    OrganisationService-->>AgregationService: Return folders
+    AgregationService-->>Frontend: Return folders list
     Frontend-->>User: Display folders
 ----
-
 
 === Search by Title and Folder
 
@@ -305,20 +320,31 @@ sequenceDiagram
 sequenceDiagram
     participant User
     participant Frontend
+    participant AgregationService
     participant SearchService
     participant SearchEngine
+    participant OrganisationService
+    participant CredentialService
 
     User->>Frontend: Enter folder name
-    Frontend->>SearchService: GET /search/folders?name={folderName}
+    Frontend->>AgregationService: GET /search/folders?name={folderName}
+    AgregationService->>SearchService: Query folders by name
     SearchService->>SearchEngine: Query folders by name
     SearchEngine-->>SearchService: Return matching folders
-    SearchService-->>Frontend: Return folders list
+    SearchService-->>AgregationService: Return folder ids
+    AgregationService->>OrganisationService: GET /folders/{folderId}
+    OrganisationService-->>AgregationService: Return folders
+    AgregationService-->>Frontend: Return folders list
     Frontend-->>User: Display folders for selection
     User->>Frontend: Select a folder
-    Frontend->>SearchService: GET /search/credentials?title={searchString}&folder_id={selectedFolderId}
+    Frontend->>AgregationService: GET /search/credentials?title={searchString}&folder_id={selectedFolderId}
+    AgregationService->>SearchService: Query credentials by title and folder ID
     SearchService->>SearchEngine: Query credentials by title and folder ID
     SearchEngine-->>SearchService: Return filtered credentials
-    SearchService-->>Frontend: Return credentials list
+    SearchService-->>AgregationService: Return credential ids
+    AgregationService->>CredentialService: GET /credentials/{credentialId}
+    CredentialService-->>AgregationService: Return credentials
+    AgregationService-->>Frontend: Return credentials list
     Frontend-->>User: Display filtered credentials
 ----
 
@@ -329,21 +355,30 @@ sequenceDiagram
 sequenceDiagram
     participant User
     participant Frontend
+    participant AgregationService
     participant SearchService
     participant SearchEngine
+    participant OrganisationService
+    participant CredentialService
 
     User->>Frontend: Enter search string with tag filter
-    Frontend->>SearchService: GET /search/tags?name={searchString}
+    Frontend->>AgregationService: GET /search/tags?name={searchString}
+    AgregationService->>SearchService: Query tags by name
     SearchService->>SearchEngine: Query tags by name
     SearchEngine-->>SearchService: Return matching tags
-    SearchService-->>Frontend: Return tags list
+    SearchService-->>AgregationService: Return tag ids
+    AgregationService->>OrganisationService: GET /tags/{tagId}
+    OrganisationService-->>AgregationService: Return tags
+    AgregationService-->>Frontend: Return tags list
     Frontend-->>User: Display tags for selection
     User->>Frontend: Select tags
-    Frontend->>SearchService: GET /search/credentials?tag_ids={selectedTagIds}
+    Frontend->>AgregationService: GET /search/credentials?tag_ids={selectedTagIds}
+    AgregationService->>SearchService: Query credentials by selected tag IDs
     SearchService->>SearchEngine: Query credentials by selected tag IDs
     SearchEngine-->>SearchService: Return filtered credentials
-    SearchService-->>Frontend: Return credentials list
+    SearchService-->>AgregationService: Return credential ids
+    AgregationService->>CredentialService: GET /credentials/{credentialId}
+    CredentialService-->>AgregationService: Return credentials
+    AgregationService-->>Frontend: Return credentials list
     Frontend-->>User: Display filtered credentials
 ----
-
-
