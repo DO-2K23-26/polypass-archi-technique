@@ -14,82 +14,136 @@ A event is call when a credential, tag and folder is created, updated or deleted
 
 For each event we have a topic in Kafka. The topic name is the event name. 
 
-[source,typescript]
+[source,json]
 ----
-interface Event {
+{
     type: string;
 }
 ----
 
-[source,typescript]
+[source,json]
 ----
-interface CreateTagEvent extends Event {
-    id_tag: string;
-    id_folder: string;
-    name_tag: string;
+{
+    "CreateTagEvent": {
+        "type": "object",
+        "properties": {
+            "id_tag": { "type": "string" },
+            "id_folder": { "type": "string" },
+            "name_tag": { "type": "string" }
+        },
+        "required": ["id_tag", "id_folder", "name_tag"]
+    }
 }
 ----
 
-[source,typescript]
+[source,json]
 ----
-interface CreateFolderEvent extends Event {
-    id_folder: string;
-    name_folder: string;
+{
+    "CreateFolderEvent": {
+        "type": "object",
+        "properties": {
+            "id_folder": { "type": "string" },
+            "name_folder": { "type": "string" }
+        },
+        "required": ["id_folder", "name_folder"]
+    }
 }
 ----
 
-[source,typescript]
+[source,json]
 ----
-interface CreateCredentialEvent extends Event {
-    id_credential: string;
-    id_folder: string;
-    title_credential: string;
+{
+    "CreateCredentialEvent": {
+        "type": "object",
+        "properties": {
+            "id_credential": { "type": "string" },
+            "id_folder": { "type": "string" },
+            "title_credential": { "type": "string" }
+        },
+        "required": ["id_credential", "id_folder", "title_credential"]
+    }
 }
 ----
 
-[source,typescript]
+[source,json]
 ----
-interface UpdateTagEvent extends Event {
-    id_tag: string; 
-    id_folder: string; // optional
-    name_tag: string; // optional
+{
+    "UpdateTagEvent": {
+        "type": "object",
+        "properties": {
+            "id_tag": { "type": "string" },
+            "id_folder": { "type": "string" },
+            "name_tag": { "type": "string" }
+        },
+        "required": ["id_tag"]
+    }
 }
 ----
 
-[source,typescript]
+[source,json]
 ----
-interface UpdateFolderEvent extends Event {
-    id_folder: string; 
-    name_folder: string;
+{
+    "UpdateFolderEvent": {
+        "type": "object",
+        "properties": {
+            "id_folder": { "type": "string" },
+            "name_folder": { "type": "string" }
+        },
+        "required": ["id_folder"]
+    }
 }
 ----
 
-[source,typescript]
+[source,json]
 ----
-interface UpdateCredentialEvent extends Event {
-    id_credential: string;
-    title_credential: string;
+{
+    "UpdateCredentialEvent": {
+        "type": "object",
+        "properties": {
+            "id_credential": { "type": "string" },
+            "title_credential": { "type": "string" }
+        },
+        "required": ["id_credential", "title_credential"]
+    }
 }
 ----
 
-[source,typescript]
+[source,json]
 ----
-interface DeleteTagEvent extends Event {
-    id_tag: string;
+{
+    "DeleteTagEvent": {
+        "type": "object",
+        "properties": {
+            "id_tag": { "type": "string" }
+        },
+        "required": ["id_tag"]
+    }
 }
 ----
 
-[source,typescript]
+[source,json]
 ----
-interface DeleteFolderEvent extends Event {
-    id_folder: string;
+{
+    "DeleteFolderEvent": {
+        "type": "object",
+        "properties": {
+            "id_folder": { "type": "string" }
+        },
+        "required": ["id_folder"]
+    }
 }
 ----
 
-[source,typescript]
+[source,json]
 ----
-interface DeleteCredentialEvent extends Event {
-    id_credential: string;
+{
+    "DeleteCredentialEvent": {
+        "type": "object",
+        "properties": {
+            "id_credential": { "type": "string" }
+        },
+        "required": ["id_credential"]
+    }
 }
 ----
 
