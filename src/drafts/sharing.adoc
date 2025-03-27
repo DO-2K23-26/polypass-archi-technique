@@ -1,4 +1,4 @@
-==== Definition
+==== **Definition**
 
 Sharing is a service that allows users to share secrets with guests.
 
@@ -132,3 +132,73 @@ Response
 }
 ----
 ****
+
+==== **Sequence Diagram**
+
+===== __User's client__
+
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
+sequenceDiagram
+    participant User's client
+    participant Sharing API
+    participant Kafka
+    participant Authentication
+
+    alt the secret needs to be hashed
+        User's client->>User's client: Create a hash
+    end
+    
+    User's client->>Sharing API: Send the secret
+
+    Sharing API->>Authentication: Get the user's id
+    Authentication-->>Sharing API: User id
+    Sharing API->>Sharing API: Store the secret
+
+    Sharing API->>Kafka: Send analytics metrics
+
+    Sharing API-->>User's client: Send the secret id
+....
+
+===== __Guest's client__
+
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
+sequenceDiagram
+    participant Sharing API
+    participant Guest's client
+    participant Kafka
+
+    Guest's client->>Sharing API: Request the secret
+    Sharing API->>Kafka: Send analytics metrics
+    
+    alt the secret one time use
+        Sharing API->>Sharing API: Delete the secret
+        Sharing API->>Kafka: Send analytics metrics
+    end
+
+    Sharing API-->>Guest's client: Send the secret
+    
+    alt the secret is hashed
+        Guest's client->>Guest's client: Decrypt the hash
+    end
+
+    alt copying the secret
+        Guest's client->>Sharing API: Send a copying request
+        Sharing API->>Kafka: Send analytics metrics
+    end
+....
+
+==== **Cron**
+
+A cron job is responsible for deleting secrets with an expiration date. The cron's execution date is set to the nearest secret expiration date.

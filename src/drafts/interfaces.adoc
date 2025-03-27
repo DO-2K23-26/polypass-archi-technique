@@ -5,7 +5,7 @@
 
 === Sharing
 
-include::sharing-interface.adoc[]
+include::sharing.adoc[]
 
 === Authorization
 === User
