@@ -1,7 +1,7 @@
 == Data Structure Schema
 
 == Overview
-This document describes the data structure schema for the Kamaid application. The schema is composed of three main entities: `Tag`, `Credential`, and `Folder`. 
+This document describes the data structure schema for the Search service. The schema is composed of three main entities: `Tag`, `Credential`, and `Folder`. 
 The search service will find credentials based on the tags names, folders name or my credential title.
 
 == Data Structure
@@ -27,4 +27,21 @@ classDiagram
         id: string
         id_folders: string[]
     }
+----
+
+== SQL schema
+
+We will deploy an SQL database (PostgreSQL) to store folders, as they are a nested/tree-like structure, which cannot be properly handled for direct search in Elastic's database.  
+A query for a folder's ID will return a flat list of all subfolders IDs (and names, optionally). 
+
+[mermaid, sql-schema, png]
+----
+erDiagram
+    folders {
+        int id PK "Primary key"
+        string folder_name "Name of the folder"
+        int parent_id FK "References folders.id"
+    }
+
+    folders ||--o{ folders : "has child"
 ----
