@@ -169,74 +169,50 @@ This could be a sequence diagram, and a use-case diagram.
 - The frontend should show something like this. We are at step 1. :
 
 ```
-                                  User has written a search query "Spot".
+                                  User wants to search for credential "foobar" but first searches it in folder "SpotifyFolder".
+                                  User has written a search query "Spot". 
 
                                   1. Before pressing "Enter":
 
                                     ┌─────────────────────────────────────────┐
                                     │Search for: Spot                         │
                                     └─────────────────────────────────────────┘
+                                    │  [Search in folders]                    │ <- These are buttons that input "folders: " into the search query field.
+                                    │  [Search in tags]                       │    User can also write it themselves.
                                     │                                         │
-                                    │  Search in folders:                     │
-                                    │                                         │
-                                    │    in: Spoots                           │
-                                    │                                         │
-                                    │    in: Spotpolpot                       │
+                                    │  Spotifyaccount                         │ <- These are credentials.
+                                    │  Spotify2ndaccount                      │
                                     │                                         │
                                     │                                         │
-                                    │  Search in tags:                        │
+                                    └───────────────────────┬─────────────────┘
+                                                            │
+                                                            │
+                                                            │      2. After clicking on "[Search in folders]"
+                                                            │         And writing "Spot" as a query.
+                                                            │
+                                                            ▼
+                                    ┌─────────────────────────────────────────┐
+                                    │Search for: [Search in folders] Spot     │
+                                    └─────────────────────────────────────────┘
+                                    │   SpotifyFolder                         │
+                                    │                                         |
                                     │                                         │
-                                    │    tag: Spotted                         │
                                     │                                         │
-                                    │    tag: Spottz                          │
+                                    └─────────────────────────────────────────┘
+                                                            │
+                                          3. After clicking on "SpotifyFolder"
+                                             And writing "foobar" as a query.
+                                                            │
+                                                            ▼
+                                    ┌─────────────────────────────────────────┐
+                                    │Search for: [in SpotifyFolder] foo       │
+                                    └─────────────────────────────────────────┘
+                                    │   [in SpotifyFolder] foobar             │ <- It searches for credentials directly in "SpotifyFolder"..
                                     │                                         │
-                                    └─────────────────┬─────┬─────────────────┘
-                                                      │     │
-                                                      │     │
-2.1. After pressing "Enter":                          │     │      2.2. After clicking on "in: Spoots"
-                                                      │     │
-  ┌─────────────────────────────────────────┐   ◄─────┘     └───►    ┌─────────────────────────────────────────┐
-  │Search for: Spot                         │                        │Search for: [in: Spoots]                 │
-  └─────────────────────────────────────────┘                        └─────────────────────────────────────────┘
-  │                                         │                        │                                         │
-  │  Spotifyaccount                         │                        │  In folder Spoots:                      │
-  │                                         │                        │                                         │
-  │  Spotify2ndaccount                      │                        │   Carrefour                             │
-  │                                         │                        │                                         │
-  │                                         │                        │   lkml.org                              │
-  │                                         │                        │                                         │
-  │                                         │                        │   Spotifyaccount                        │
-  │                                         │                        │                                         │
-  │                                         │                        │   kernelorgaccount                      │
-  │                                         │                        │                                         │
-  │                                         │                        │                                         │
-  │                                         │                  ┌──── │                                         │
-  │                                         │                  │     │                                         │
-  └─────────────────────────────────────────┘                  │     └─────────────────────────────────────────┘
-                                                               │
-                                                               │
-                                                               │    User writes a search query "Spot".
-                                                               │
-                                                               │    3. After pressing "Enter":
-                                                               │
-                                                               │      ┌─────────────────────────────────────────┐
-                                                               │      │Search for: Spot                         │
-                                                               │      └─────────────────────────────────────────┘
-                                                               └───►  │                                         │
-                                                                      │  In folder Spoots:                      │
-                                                                      │                                         │
-                                                                      │   Spotifyaccount                        │
-                                                                      │                                         │
-                                                                      │                                         │
-                                                                      │                                         │
-                                                                      │                                         │
-                                                                      │                                         │
-                                                                      │                                         │
-                                                                      │                                         │
-                                                                      │                                         │
-                                                                      │                                         │
-                                                                      │                                         │
-                                                                      └─────────────────────────────────────────┘
+                                    │   [in SpotifyFolder/Spotifold] foobabar │ <- ..And also in sub-directories of "SpotifyFolder".
+                                    │                                         │
+                                    │                                         │
+                                    └─────────────────────────────────────────┘
 ```
 
 - At step 1., the frontend needs to display tags and folders to search in. For this purpose, it fetches /search/tags and /search/folders. Payload includes tag name or folder name respectively. The search service returns a list of tags (or folders) that match the user (user's ID from JWT).
