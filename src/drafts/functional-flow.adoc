@@ -1,0 +1,31 @@
+Create a credential
+
+Saga pattern
+
+ifdef::env-github[]
+[source,mermaid]
+endif::[]
+ifndef::env-github[]
+[mermaid]
+endif::[]
+....
+sequenceDiagram
+    participant Frontend
+    participant Credential
+    participant Organization
+    participant Kafka
+    Frontend->>Credential: POST /credentials
+    Credential->>Credential: Create a credential
+    Credential->>Kafka: CreateCredentialEvent
+    Kafka->>Organization: CreateCredentialEvent
+    alt Has tags or is associated to a folder
+      Organization->>Organization: Create Tags, associate to folder
+    end
+    alt Tags and Folder failed
+        Organization->>Kafka: CreateCredentialFailedEvent
+        Kafka->>Credential: CreateCredentialFailedEvent
+        Credential->>Credential: DeleteCredential
+    end
+    Credential-->>Frontend: 201 Credential created
+....
+
